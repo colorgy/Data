@@ -19,7 +19,8 @@ class CsvGenerator
         sheet = book.create_worksheet name: '課程列表'
 
         # write table header
-        sheet.row(0).concat %w(系所 代碼 課程名稱 授課教師 書籍ISBN 已確認)
+        sheet.row(0).concat \
+          %w(系所 代碼 課程名稱 授課教師 書籍ISBN 已確認 版次 作者 出版商 代理商 價格)
 
         columns = ["department", "code", "name", "lecturer"]
         selected_courses.each_with_index do |course, index|
