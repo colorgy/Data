@@ -29,18 +29,21 @@ class CsvGenerator
         end
 
         # write files
-        output_folder = opts[:output_folder] || 'output'
-        department_folder = File.join(output_folder, department)
-        cover_folder = File.join(output_folder, department, '用書封面')
+        @file_base_name ||= File.basename(filename, '.json')
+        @output_folder ||= opts[:output_folder] || 'output'
+        @filename_folder ||= File.join(@output_folder, @file_base_name)
+        department_folder = File.join(@output_folder, @file_base_name, department)
+        cover_folder = File.join(@output_folder, @file_base_name, department, '用書封面')
 
-        Dir.mkdir(output_folder) if not Dir.exist?(output_folder)
+        Dir.mkdir(@output_folder) if not Dir.exist?(@output_folder)
+        Dir.mkdir(@filename_folder) if not Dir.exist?(@filename_folder)
         Dir.mkdir(department_folder) if not Dir.exist?(department_folder)
         Dir.mkdir(cover_folder) if not Dir.exist?(cover_folder)
 
-        book.write File.join(output_folder, department, "#{department}.xls")
-
-      end
-    end
+        book.write File.join(@output_folder, @file_base_name, department, "#{department}.xls")
+      end # @courses.map
+      File.write(File.join(@output_folder, @file_base_name, "#{@file_base_name}-#{DateTime.now.strftime('%m-%d-%Y')}.json"), JSON.pretty_generate(@courses))
+    end # if not @courses.empty?
   end
 
   private
