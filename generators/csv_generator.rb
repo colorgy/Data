@@ -13,7 +13,7 @@ class CsvGenerator
     if not @courses.empty?
       @courses.map{|cor| cor["department"]}.uniq.each do |department|
         selected_courses = select_courses_by(department: department)
-        department = "不分系所" if department.empty?
+        department = "無系所" if department.empty? or department.nil?
 
         book = Spreadsheet::Workbook.new
         sheet = book.create_worksheet name: '課程列表'
