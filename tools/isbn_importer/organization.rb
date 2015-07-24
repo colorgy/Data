@@ -1,0 +1,30 @@
+module IsbnImporter
+  ORGANIZATION = {
+    "cycu" => "中原",
+    "fju" => "輔仁",
+    "nchu" => "中興",
+    "nctu" => "交通",
+    "nthu" => "清華",
+    "ntpu" => "北大",
+    "ntut" => "北科",
+    "tku" => "淡江",
+    "usckh" => "實踐高雄",
+    "ncku" => "成功",
+    "ncu" => "中央",
+    "ccu" => "中正",
+    "cgu" => "長庚",
+    "mcu" => "銘傳",
+    "nccu" => "政大",
+    "nsysu" => "中山",
+    "ntnu" => "台師",
+    "ntu" => "臺大",
+    "ntust" => "台科",
+    "nutc" => "中科",
+    "pccu" => "文化",
+    "scu" => "東吳",
+    "usc" => "實踐",
+    "yuntech" => "雲科",
+    "yzu " => "元智",
+  }
+
+end
