@@ -6,6 +6,7 @@
 require 'spreadsheet'
 require 'pry'
 require 'json'
+require 'csv'
 
 require_relative './isbn_importer/organization'
 
@@ -31,6 +32,7 @@ module IsbnImporter
         return
       end
 
+      import_rows = []
       Dir.glob(File.join(directory, '**', '*.xls')).each do |xls|
         course_sheet = Spreadsheet.open(xls)
 
@@ -43,6 +45,8 @@ module IsbnImporter
           # CourseBook.first_or_create()
           isbn = row[4]
           next if isbn.nil?
+
+          import_rows << row
 
           course_book = {
             code: row[1],
@@ -62,6 +66,12 @@ module IsbnImporter
       end # end each xls
 
       Dir.mkdir 'import_ready' if not Dir.exist?('import_ready')
+
+      CSV.open(File.join('import_ready', "#{Pathname.new(directory).basename}.csv"), 'w') do |csv|
+        csv << %w(系所 代碼 課程名稱 授課教師 書籍ISBN 已確認 版次 作者 出版商 代理商 價格)
+        import_rows.each {|row| csv << row}
+      end
+
       File.write(File.join('import_ready', "#{Pathname.new(directory).basename}.json"), JSON.pretty_generate(course_book_data))
 
     end # end convert method
